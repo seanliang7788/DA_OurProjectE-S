@@ -6,19 +6,20 @@ import matplotlib.pyplot as plt
 class DataAnalysis:
     def Data1(self):
         # Step 1: (Parse data) Split year-month column to year and month separately
+        df = pd.read_excel("C:\Users\grobe\PycharmProjects\Project_File (2).xlsx")
         df = self.df.copy()
         df = df.rename(columns={df.columns[0]: 'year_month'})
         # Remove whitespace from `year_month` and split into year and month
         df['year'] = df['year_month'].apply(lambda row: row.strip().split(' ')[0]).astype(int)
         df['month'] = df['year_month'].apply(lambda row: row.strip().split(' ')[1])
+        df = df.replace([None, ' na '], 0)
 
     def __init__(self, path_to_datafile, year_range, included_countries):
         self.df = pd.read_excel(path_to_datafile)
         self.year_range = year_range
         self.included_countries = included_countries
 
-        # Step 2: replace na values
-        df = df.replace([None, ' na '], 0)
+
 
         # Step 3: Identify data for computation
         # S/No=1 : 1978 - 1987
@@ -52,7 +53,7 @@ class DataAnalysis:
         plt.ylabel('Total International Visitors (In millions)')
         plt.xlabel('Countries')
         plt.show()
-
+#
 
 
 
